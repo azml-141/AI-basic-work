@@ -1,0 +1,52 @@
+2. 평가용 데이터 3번을 학습을 종료한 DNN에게 주고 추측값을
+구해 보세요. 그리고 정답과 비교한 후, 손실값을 구해 보세요.
+
+답:
+
+1. 하이퍼 파라미터 지정
+
+# 은닉층의 개수
+MY_HIDDEN = 1000
+# 전체(총) dataset의 학습 횟수
+MY_EPOCH = 3
+# iteration(1회 학습)에 dataset을 몇 개의 BATCH로 나누어 학습하는가.
+MY_BATCH = 64
+
+
+4. 인공신경망 학습
+# 최적화 함수와 손실 함수 지정
+model.compile(optimizer='sgd',
+              loss='mse')
+
+print('\n 학습 시작')
+begin = time()
+
+model.fit(x=X_test,
+          y=Y_test,
+          epochs=MY_EPOCH,
+          batch_size=MY_BATCH,
+          verbose=0)
+
+end=time()
+print('총 합습시간; {:.1f}초'.format(end-begin))
+
+
+5. 인공 신경망 평가
+
+# 신경망 평가 및 손실값 계산
+loss = model.evaluate(x=X_train,
+                      y=Y_train,
+                      verbose=0
+                      )
+print('\nDNN 평균 제곱 오차 (MSE): {:.2f}'.format(loss))
+
+# 신경망 활용 및 산포도 출력
+pred = model.predict(x=X_data)
+sns.regplot(x=Y_data, y=pred)
+
+plt.xlabel('Actual Values')
+plt.ylabel('predicted Values')
+plt.show()
+
+
+MSE는 0.545

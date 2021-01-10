@@ -1,0 +1,5 @@
+3. 손실값을 최소화하는 optimizer와 loss 함수를 찾아보세요.
+어떤 combination인가요?
+
+optimizer: Adam
+loss: mse
